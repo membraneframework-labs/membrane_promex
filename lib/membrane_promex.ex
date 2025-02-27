@@ -34,7 +34,7 @@ defmodule Membrane.PromEx do
     %{
       spanID: ComponentPath.format(meta.component_path) <> ":" <> to_string(handler),
       traceID: "#{inspect(trace_id)} :  #{pipeline_name}/#{inspect(hd(meta.component_path))}",
-      serviceName: to_string(meta.callback_context.name),
+      serviceName: get_name(meta.callback_context),
       operationName: inspect(handler),
       parentSpanID: "",
       startTime:
@@ -44,6 +44,14 @@ defmodule Membrane.PromEx do
           :millisecond
         )
     }
+  end
+
+  defp get_name(%{name: name}) do
+    name
+  end
+
+  defp get_name(%{module: module}) do
+    module
   end
 
   defp pid(string) do

@@ -47,10 +47,7 @@ defmodule MembranePromExTest do
     :telemetry.attach(
       :membrane_promex_test,
       [:membrane, :element, :handle_buffer, :stop],
-      fn _, _, _, _ ->
-        IO.inspect("A")
-        send(pid, :done)
-      end,
+      fn _, _, _, _ -> send(pid, :done) end,
       %{}
     )
 

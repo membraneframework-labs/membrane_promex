@@ -29,7 +29,7 @@ defmodule Membrane.PromEx do
 
   defp resolve_membrane_tags(trace_id, handler, meta) do
     pipeline_pid = pid(hd(meta.component_path))
-    {:registered_name, pipeline_name} = Process.info(pipeline_pid, :registered_name)
+    pipeline_name = name_or_pid(pipeline_pid)
 
     %{
       spanID: ComponentPath.format(meta.component_path) <> ":" <> to_string(handler),
@@ -52,6 +52,13 @@ defmodule Membrane.PromEx do
 
   defp get_name(%{module: module}) do
     module
+  end
+
+  defp name_or_pid(pid) do
+    case Process.info(pid, :registered_name) do
+      {:registered_name, []} -> pid
+      {:registered_name, name} -> name
+    end
   end
 
   defp pid(string) do

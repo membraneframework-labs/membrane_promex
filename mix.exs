@@ -2,7 +2,7 @@ defmodule Membrane.Template.Mixfile do
   use Mix.Project
 
   @version "0.1.0"
-  @github_url "https://github.com/membraneframework/membrane_template_plugin"
+  @github_url "https://github.com/membraneframework/membrane_promex"
 
   def project do
     [
@@ -15,11 +15,11 @@ defmodule Membrane.Template.Mixfile do
       dialyzer: dialyzer(),
 
       # hex
-      description: "Template Plugin for Membrane Framework",
+      description: "Membrane Telemetry Plugin for PromeEx",
       package: package(),
 
       # docs
-      name: "Membrane Template plugin",
+      name: "Membrane Promex",
       source_url: @github_url,
       docs: docs(),
       homepage_url: "https://membrane.stream"

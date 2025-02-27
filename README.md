@@ -7,7 +7,7 @@ The package can be installed by adding `membrane_promex` to your list of depende
 ```elixir
 def deps do
   [
-    {:membrane_template_plugin, git: "git@github.com:membraneframework/membrane_promex.git"}
+    {:membrane_promex, git: "git@github.com:membraneframework/membrane_promex.git"}
   ]
 end
 ```

@@ -33,7 +33,7 @@ defmodule Membrane.PromEx do
 
     %{
       spanID: ComponentPath.format(meta.component_path) <> ":" <> to_string(handler),
-      traceID: "#{inspect(trace_id)} :  #{pipeline_name}/#{inspect(hd(meta.component_path))}",
+      traceID: "#{inspect(trace_id)}:#{pipeline_name}",
       serviceName: get_name(meta.callback_context),
       operationName: inspect(handler),
       parentSpanID: "",

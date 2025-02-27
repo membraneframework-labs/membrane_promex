@@ -6,7 +6,7 @@ defmodule Membrane.Template.Mixfile do
 
   def project do
     [
-      app: :membrane_template_plugin,
+      app: :membrane_promex,
       version: @version,
       elixir: "~> 1.13",
       elixirc_paths: elixirc_paths(Mix.env()),
@@ -37,10 +37,18 @@ defmodule Membrane.Template.Mixfile do
 
   defp deps do
     [
-      {:membrane_core, "~> 1.0"},
+      {:prom_ex, "~> 1.11.0"},
+      {:membrane_core,
+       git: "https://github.com/membraneframework/membrane_core",
+       branch: "telemetry-with-past-time"},
       {:ex_doc, ">= 0.0.0", only: :dev, runtime: false},
       {:dialyxir, ">= 0.0.0", only: :dev, runtime: false},
-      {:credo, ">= 0.0.0", only: :dev, runtime: false}
+      {:credo, ">= 0.0.0", only: :dev, runtime: false},
+
+      # Test only
+      {:phoenix, "~> 1.7", only: :test},
+      {:plug_cowboy, "~> 2.0", only: :test},
+      {:req, "~> 0.5.0"}
     ]
   end
 

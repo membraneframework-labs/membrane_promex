@@ -56,7 +56,7 @@ defmodule Membrane.PromEx do
 
   defp name_or_pid(pid) do
     case Process.info(pid, :registered_name) do
-      {:registered_name, []} -> pid
+      {:registered_name, []} -> inspect(pid)
       {:registered_name, name} -> name
     end
   end

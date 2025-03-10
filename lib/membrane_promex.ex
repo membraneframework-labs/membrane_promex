@@ -66,7 +66,7 @@ defmodule Membrane.PromEx do
   end
 
   defp get_name(%{module: module}) do
-    module
+    module |> inspect()
   end
 
   defp name_or_pid(pid) do

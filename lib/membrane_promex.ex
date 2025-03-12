@@ -43,8 +43,6 @@ defmodule Membrane.PromEx do
       for {k, v} <- meta.callback_context,
           do: %{key: to_string(k), value: inspect(v)}
 
-    IO.inspect(service_tags)
-
     %{
       spanID: ComponentPath.format(meta.component_path) <> ":" <> to_string(handler),
       traceID: "#{inspect(trace_id)}:#{pipeline_name}",

@@ -19,7 +19,15 @@ defmodule Membrane.PromEx do
           last_value([:membrane, component, handler, :stop, :duration],
             description: "Duration of membrane #{handler} callback",
             unit: {:native, :millisecond},
-            tags: [:spanID, :traceID, :serviceName, :operationName, :parentSpanID, :startTime],
+            tags: [
+              :spanID,
+              :traceID,
+              :serviceName,
+              :operationName,
+              :parentSpanID,
+              :startTime,
+              :serviceTags
+            ],
             tag_values: &resolve_membrane_tags(beam_start_time, handler, &1)
           )
         ]
@@ -30,6 +38,10 @@ defmodule Membrane.PromEx do
   defp resolve_membrane_tags(trace_id, handler, meta) do
     pipeline_pid = pid(hd(meta.component_path))
     pipeline_name = name_or_pid(pipeline_pid)
+
+    service_tags =
+      for {k, v} <- meta.callback_context,
+          do: %{key: to_string(k), value: inspect(v)}
 
     %{
       spanID: ComponentPath.format(meta.component_path) <> ":" <> to_string(handler),
@@ -42,7 +54,8 @@ defmodule Membrane.PromEx do
           meta.monotonic_time + :erlang.time_offset(),
           :native,
           :millisecond
-        )
+        ),
+      serviceTags: Jason.encode!(service_tags)
     }
   end
 
@@ -56,8 +69,8 @@ defmodule Membrane.PromEx do
 
   defp name_or_pid(pid) do
     case Process.info(pid, :registered_name) do
-      {:registered_name, []} -> pid
-      {:registered_name, name} -> name
+      {:registered_name, []} -> inspect(pid)
+      {:registered_name, name} -> to_string(name)
     end
   end
 

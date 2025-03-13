@@ -17,13 +17,7 @@ end
 Set up PromEx according to their [most recent documentation](https://github.com/akoutmos/prom_ex?tab=readme-ov-file#setting-up-promex)
 Then in your PromEx module add: 
 ```elixir
-  def plugins do
-    [
-      ...
-      Membrane.PromEx,
-      ...
-    ]
-  end
+use Membrane.PromEx
 ```
 
 ## Copyright and License
